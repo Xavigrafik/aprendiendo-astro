@@ -1,0 +1,44 @@
+/* 1. Variables (Design Tokens) */
+:root {
+  --primary: #4f46e5;
+  --text-main: #1f2937;
+  --bg-main: #ffffff;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --transition: 0.3s ease;
+}
+
+/* 2. Reset Moderno */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  color: var(--text-main);
+  background-color: var(--bg-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 3. Tipografía Base */
+h1, h2, h3 {
+  line-height: 1.1;
+  text-wrap: balance; /* Evita viudas en títulos */
+}
+
+/* 4. Utilidades (Solo las esenciales) */
+.container {
+  width: min(100% - 2rem, 1200px);
+  margin-inline: auto;
+}
+
+.section-padding {
+  padding-block: 4rem;
+}
