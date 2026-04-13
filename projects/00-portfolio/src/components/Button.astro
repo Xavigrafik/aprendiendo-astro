@@ -1,0 +1,27 @@
+---
+// src/components/Button.astro
+const { variant = "astro", href, ...rest } = Astro.props; // Extraemos href y el resto de atributos
+const Element = href ? 'a' : 'button';
+---
+
+<Element class={`btn btn--${variant}`} href={href} {...rest}>
+    <slot />
+</Element>
+<style>
+    .btn {
+        padding: 0.5rem 1.25rem;
+        margin-bottom: 0.25rem;
+        text-align: center;
+        font-size: 1rem;
+        border-radius: 999px;
+        background-color: lightskyblue;
+        border: 1px solid darkblue;
+        text-decoration: none;
+        color: darkblue;
+        
+        &:hover{
+            background-color: rgb(120, 185, 225);
+        }
+
+    }
+</style>

@@ -1,15 +1,54 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import Welcome from '../components/Welcome.astro';
+import { getCollection } from "astro:content";
+const allProjects = await getCollection("projects");
+
+import MainLayout from "../layouts/MainLayout.astro";
+import Welcome from "../components/Welcome.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 ---
 
 <MainLayout title="Home | Mi Portfolio">
     <section class="container section-padding">
-      <Welcome></Welcome>
-      <main>
-        main
-      </main>
-    <h1>El proyecto está vivo</h1>
-    <p>Si ves esto con el tipo de letra Inter (o sans-serif) y centrado, el SCSS global está funcionando.</p>
-  </section>
+        <Welcome />
+        <main>main</main>
+        <h1>El proyecto está vivo</h1>
+        <p>
+            Si ves esto con el tipo de letra Inter (o sans-serif) y centrado, el
+            SCSS global está funcionando.
+        </p>
+    </section>
+
+    <section class="container">
+        <h1>Galería de Proyectos</h1>
+
+        <div class="projects-grid">
+            {
+                allProjects.map((project) => (
+                    <ProjectCard
+                        title={project.data.title}
+                        description={project.data.description}
+                        tags={project.data.tags}
+                        slug={project.id}
+                    />
+                ))
+            }
+        </div>
+    </section>
+
+    <style lang="scss">
+        .projects-grid {
+            border:1px solid #ccc;
+            padding: 1em;
+            background-color: whitesmoke;
+            border-radius: 0.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+
+            & :global(article) { // Esto busca cualquier article dentro, sea de quien sea
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
 </MainLayout>

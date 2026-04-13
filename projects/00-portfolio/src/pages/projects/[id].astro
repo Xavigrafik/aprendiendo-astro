@@ -1,0 +1,85 @@
+---
+import { getCollection, render } from "astro:content";
+import ProjectLayout from "../../layouts/ProjectLayout.astro";
+import { DevToolbarBadge } from "astro/runtime/client/dev-toolbar/ui-library/badge.js";
+
+// 1. Esta función es el "capitán" de las rutas dinámicas
+export async function getStaticPaths() {
+    const projects = await getCollection("projects");
+
+    return projects.map((project) => ({
+        params: { id: project.id }, // La URL será /projects/nombre-del-archivo
+        props: { project }, // Pasamos todo el proyecto como propiedad
+    }));
+}
+
+// 2. Recuperamos el proyecto de las props
+const { project } = Astro.props;
+const { data } = project;
+
+// 3. Nueva función de Astro 5 para procesar el contenido del Markdown
+const { Content } = await render(project);
+
+import Badge from "./../../components/Badge.astro";
+import Button from "./../../components/Button.astro";
+---
+
+<ProjectLayout title={data.title} description={data.description}>
+    <div slot="sidebar">
+        <h3>Detalles</h3>
+        <ul>
+            {data.tags.map((tag) => <li>{tag}</li>)}
+        </ul>
+        <a href="/">← Volver</a>
+    </div>
+
+    <article class="container section-padding">
+        <Button href="/">Volver atrás</Button>
+        <h1>{data.title}</h1>
+        <p class="description">{data.description}</p>
+
+        <ul class="project-card__tags">
+            {data.tags && data.tags.length > 0 && <span>Tags:</span>}
+            {data.tags?.map((tag) => (
+                <li class="project-card__tag">
+                <Badge variant={tag}>{tag}</Badge>
+                </li>
+            )) || <li>No hay tags disponibles</li>}
+        </ul>
+
+        <hr />
+        <div class="prose">
+            <Content />
+        </div>
+    </article>
+</ProjectLayout>
+
+<style lang="scss">
+    .prose {
+        background-color: lightskyblue;
+        max-width: 65ch;
+        margin-inline: auto;
+
+        // Aquí estilas el HTML que viene del Markdown
+        :global(h2) {
+            color: var(--primary);
+            margin-top: 2rem;
+        }
+
+        :global(p) {
+            line-height: 1.8;
+        }
+    }
+
+    article {
+        border: 1px solid #ccc;
+        padding: 1em;
+        .project-card__tags {
+            display: flex;
+            line-height: 1.2;
+            gap: 0.5em;
+            padding: 0;
+            list-style: none;
+        }
+    }
+</style>

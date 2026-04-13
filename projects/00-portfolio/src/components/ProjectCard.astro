@@ -1,0 +1,61 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  slug: string;
+}
+
+const { title, description, tags, slug } = Astro.props;
+import Button from "./../components/Button.astro";
+
+---
+
+<article class="project-card">
+  <div class="project-card__content">
+
+      <h3 class="project-card__title">{title}</h3>
+      <p>ProjectCard.astro</p>
+    <p class="project-card__description">{description}</p>
+    <ul class="project-card__tags">
+      {tags.map(tag => (
+        <li class="project-card__tag">{tag}</li>
+      ))}
+    </ul>
+
+    <Button >Ver proyecto</Button>
+    <Button href={`/projects/${slug}`}>Ver proyecto</Button>
+
+  </div>
+</article>
+
+<style lang="scss" >
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color, #e5e7eb);
+    background-color: #f2f3f4;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: transform var(--transition);
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    &__content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    &__title {
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--primary);
+    }
+    
+  }
+</style>

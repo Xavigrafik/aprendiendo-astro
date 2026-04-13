@@ -1,0 +1,26 @@
+---
+// src/components/Badge.astro
+const { variant = "astro" } = Astro.props;
+---
+
+<span class={`badge badge--${variant}`}>
+    <slot />
+</span>
+
+<style lang="scss">
+    .badge {
+        padding: 0.2rem 0.6rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        line-height: 1.8;
+
+        &--astro {
+            background: #007bff;
+            color: white;
+        }
+        &--portfolio {
+            background: #6c757d;
+            color: white;
+        }
+    }
+</style>
