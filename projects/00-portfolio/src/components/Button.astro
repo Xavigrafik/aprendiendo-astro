@@ -1,27 +1,69 @@
 ---
-// src/components/Button.astro
-const { variant = "astro", href, ...rest } = Astro.props; // Extraemos href y el resto de atributos
+// 1. Definimos los tipos permitidos para el botón
+interface Props {
+  variant?: "astro" | "portfolio";
+  href?: string;
+  class?: string;
+  type?: "button" | "submit" | "reset";
+  [x: string]: any;
+}
+
+const { 
+  class: customClass = "", 
+  variant = "astro", 
+  href, 
+  type = "button",
+  ...rest 
+} = Astro.props;
+
 const Element = href ? 'a' : 'button';
+
+
+const props = {
+  class: `btn btn--${variant} ${customClass}`,
+  ...(href ? { href } : { type }),
+  ...rest
+};
 ---
 
-<Element class={`btn btn--${variant}`} href={href} {...rest}>
-    <slot />
+<Element {...props}>
+  <slot />
 </Element>
+
 <style>
     .btn {
-        padding: 0.5rem 1.25rem;
+        padding: 0.5rem 1rem;
         margin-bottom: 0.25rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        justify-content: center;
         text-align: center;
         font-size: 1rem;
         border-radius: 999px;
         background-color: lightskyblue;
-        border: 1px solid darkblue;
+        border: 1px solid currentColor;
         text-decoration: none;
         color: darkblue;
         cursor: pointer;
+        transition: all ease-in-out 200ms;
+
+        &[href] {
+            border-color: currentColor;
+            background-color: linen;
+            color: red
+        }
         
         &:hover{
-            background-color: rgb(120, 185, 225);
+            background-color: oklch(from lightskyblue calc(l * 1.15) c h );
+             color: darkred
+        }
+        &:active,
+        &:focus-visible {
+            background-color: oklch(from lightskyblue calc(l * 0.85) c h );
+        }
+        &:focus:not(:focus-visible) {
+            outline: none;
         }
 
     }

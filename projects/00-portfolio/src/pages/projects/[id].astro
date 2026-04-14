@@ -22,6 +22,7 @@ const { Content } = await render(project);
 
 import Badge from "./../../components/Badge.astro";
 import Button from "./../../components/Button.astro";
+import Icon from "./../../components/Icon.astro";
 ---
 
 <ProjectLayout title={data.title} description={data.description}>
@@ -30,11 +31,13 @@ import Button from "./../../components/Button.astro";
         <ul>
             {data.tags.map((tag) => <li>{tag}</li>)}
         </ul>
-        <a href="/">← Volver</a>
+        <a href="/"> Volver</a>
     </div>
 
-    <article class="container section-padding">
-        <Button href="/">Volver atrás</Button>
+    <article class="container section-padding" >
+        <Button href="/">
+            <Icon name="arrow-left" size={24} />
+            Volver atrás</Button>
         <h1>{data.title}</h1>
         <p class="description">{data.description}</p>
 

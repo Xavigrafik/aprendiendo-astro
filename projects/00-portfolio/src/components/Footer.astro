@@ -1,0 +1,58 @@
+---
+// Footer.astro
+const currentYear = new Date().getFullYear();
+---
+
+<footer>
+  <div class="footer-content">
+    <p>&copy; {currentYear} - Desarrollado con ❤️ por Xavi</p>
+    
+    <ul class="social-links">
+      <li>
+        <a href="https://github.com/tu-usuario" target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
+      </li>
+      <li>
+        <a href="https://linkedin.com/in/tu-perfil" target="_blank" rel="noopener noreferrer">
+          LinkedIn
+        </a>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid #333;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    color: #fff;
+    background: linear-gradient(to right, #0f0c29,var(--primary), #0f0c29) ;
+    text-align: center;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .social-links {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 1.5rem;
+  }
+
+  .social-links a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .social-links a:hover {
+    color: #6366f1; /* Un color de acento */
+  }
+</style>

@@ -1,10 +1,15 @@
 ---
 import { getCollection } from "astro:content";
 const allProjects = await getCollection("projects");
+const allTags = allProjects.map((project) => project.data.tags).flat();
+const uniqueTags = [...new Set(allTags)];
 
 import MainLayout from "../layouts/MainLayout.astro";
 import Welcome from "../components/Welcome.astro";
+import FilterBar from "../components/FilterBar.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import Footer from "../components/Footer.astro";
+
 ---
 
 <MainLayout title="Home | Mi Portfolio">
@@ -21,24 +26,28 @@ import ProjectCard from "../components/ProjectCard.astro";
     <section class="container">
         <h1>Galería de Proyectos</h1>
 
+        <FilterBar items={uniqueTags}></FilterBar>
+
         <div class="projects-grid">
             {
                 allProjects.map((project) => (
-                    <ProjectCard
-                        title={project.data.title}
-                        description={project.data.description}
-                        tags={project.data.tags}
-                        slug={project.id}
-                    />
+                <ProjectCard
+                    title={project.data.title}
+                    description={project.data.description}
+                    tags={project.data.tags}
+                    image={project.data.image}
+                    slug={project.id}
+                />
                 ))
             }
-        </div>
+            </div>
     </section>
+    
+    <Footer></Footer>
 
     <style lang="scss">
         .projects-grid {
-            border:1px solid #ccc;
-            padding: 1em;
+            margin-bottom: 3em;
             background-color: whitesmoke;
             border-radius: 0.5rem;
             display: grid;

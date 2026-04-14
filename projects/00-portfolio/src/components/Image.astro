@@ -1,0 +1,25 @@
+---
+import { Image as AstroImage } from 'astro:assets';
+const { src, alt, width = 500, height = 500 } = Astro.props;
+const defaultImage = "https://placedog.net/500/500";
+const imageToRender = src || defaultImage;
+---
+
+  {imageToRender && (
+    <AstroImage 
+      src={imageToRender} 
+      alt={alt} 
+      width={width} 
+      height={height}
+      class="astroImage" 
+    />
+  )}
+
+<style>
+  .astroImage {
+    border-radius: 8px;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+// Icon.astro
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 24, class: className } = Astro.props;
+
+// 1. Cargamos todos los SVGs de la carpeta de iconos de forma dinámica
+const icons = import.meta.glob<{ default: string }>('/src/assets/icons/*.svg', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+
+// 2. Obtenemos el contenido del SVG específico
+const svgContent = icons[`/src/assets/icons/${name}.svg`];
+
+if (!svgContent) {
+  throw new Error(`Icono "${name}" no encontrado en /src/assets/icons/`);
+}
+---
+
+<span 
+  class={`icon-inline ${className}`} 
+  style={`width: ${size}px; height: ${size}px;`}
+  set:html={svgContent} 
+/>
+
+<style is:global>
+  /* Importante: para que funcione el color, el SVG original 
+     no debe tener colores fijos (como fill="#000") */
+  .icon-inline svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+</style>
