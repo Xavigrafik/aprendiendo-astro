@@ -1,0 +1,90 @@
+---
+// Header.astro
+// import Icon from './Icon.astro';
+import AstroLogo from '../components/AstroLogo.astro'
+
+---
+
+<header class="main-header">
+  <div class="header-container">
+    <a href="/" class="astro-logo">
+       <AstroLogo class="mi-logo" />
+    </a>
+
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/projects">Proyectos</a></li>
+        <li>
+          <a href="/esta-pagina-no-existe" class="link-error">
+            Prueba 404
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .main-header {
+    background: rgba(10, 10, 10, 0.8);
+    background: var(--main-gradient);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #333;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
+
+  .nav-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-menu a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+
+  .nav-menu a:hover {
+    color: #fff;
+  }
+
+  /* Estilo especial para el enlace 404 */
+  .link-error {
+    color: #ff4d4d !important;
+    border: 1px solid #ff4d4d;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  .link-error:hover {
+    background: #ff4d4d;
+    color: white !important;
+  }
+
+  .astro-logo {
+    --astro-flame: currentColor;
+    --astro-gradient-start: currentColor;
+    --astro-gradient-end: currentColor;
+    --astro-text: currentColor;
+    color: #fff;
+}
+.astro-logo { color: white; }
+</style>

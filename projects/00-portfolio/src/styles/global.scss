@@ -5,6 +5,7 @@
   --bg-main: whitesmoke;
   --font-sans: 'Inter', system-ui, sans-serif;
   --transition: 0.3s ease;
+  --main-gradient: linear-gradient(to right, #0f0c29,var(--primary), #0f0c29);
 }
 
 /* 2. Reset Moderno */
@@ -42,3 +43,30 @@ h1, h2, h3 {
 .section-padding {
   padding-block: 4rem;
 }
+
+
+/* Versión monocromática — todo hereda el color del padre */
+.astro-logo {
+    --astro-flame: currentColor;
+    --astro-gradient-start: currentColor;
+    --astro-gradient-end: currentColor;
+    --astro-text: currentColor;
+    color: #fff;
+}
+
+// /* Colores personalizados */
+// .astro-logo {
+//   --astro-flame: navy;
+//   --astro-gradient-start: #0ea5e9;
+//   --astro-gradient-end: #6366f1;
+//   --astro-text: #1e293b;
+// }
+
+// /* Solo cambiar el wordmark, mantener llama original */
+// .astro-logo {
+//   --astro-text: white;
+// }
+
+/* O por clase directamente */
+// .astro-wordmark { fill: hotpink; }
+// .astro-flame    { fill: gold; }
