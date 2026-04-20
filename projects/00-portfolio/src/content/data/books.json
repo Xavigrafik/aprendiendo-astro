@@ -1,0 +1,16 @@
+[
+  {
+    "id": "clean-code",
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "url": "https://...",
+    "description": "Un clásico sobre artesanía del software."
+  },
+  {
+    "id": "astro-guia",
+    "title": "Astro al completo",
+    "author": "Dev Expert",
+    "url": "https://...",
+    "description": "Aprende Astro desde cero."
+  }
+]

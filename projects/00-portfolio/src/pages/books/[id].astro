@@ -1,0 +1,52 @@
+---
+// src/pages/books/[id].astro
+import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro'; // Ajusta la ruta según tu proyecto
+
+// 1. Generar todas las rutas posibles basadas en los IDs del JSON
+export async function getStaticPaths() {
+  const books = await getCollection('books');
+  
+  return books.map((book) => ({
+    params: { id: book.id }, // La clave 'id' debe coincidir con el nombre del archivo [id].astro
+    props: { book },         // Pasamos el objeto del libro como prop
+  }));
+}
+
+// 2. Recoger la prop del libro actual
+const { book } = Astro.props;
+const { title, author, description, url } = book.data;
+---
+
+<MainLayout title={title}>
+  <main>
+    <h1>{title}</h1>
+    <h3>por {author}</h3>
+    
+    <div class="content">
+      <p>{description}</p>
+    </div>
+
+    <a href={url} target="_blank" class="buy-link">Más información</a>
+    
+    <hr />
+    <a href="/books">← Volver al listado</a>
+  </main>
+</MainLayout>
+
+<style>
+  main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  .buy-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+</style>

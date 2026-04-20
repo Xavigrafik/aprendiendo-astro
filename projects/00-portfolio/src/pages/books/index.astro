@@ -1,0 +1,77 @@
+---
+import { getCollection } from 'astro:content';
+import BooksLayout from '../../layouts/BooksLayout.astro';
+
+const allBooks = await getCollection('books');
+---
+
+<BooksLayout title="BooksLayout">
+  <h1>Listado de Libros</h1>
+
+  <div class="books-grid">
+    {allBooks.map(book => (
+      <article>
+        <h2>{book.data.title}</h2>
+        <p>Autor: {book.data.author}</p>
+        <a href={`/books/${book.id}`}>Ver detalles</a>
+      </article>
+    ))}
+  </div>
+</BooksLayout>
+<style>
+  .books-grid {
+    gap: 1.5rem;
+    padding: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+    article {
+      background: #d1d2d3; /* Fondo oscuro elegante */
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition:  border-color 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &:hover {
+        border-color: #6366f1; /* Color de acento */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      h2 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.25rem;
+      }
+
+      p {
+        color: #888;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+      }
+
+      a {
+        align-self: flex-start;
+        text-decoration: none;
+        color: #6366f1;
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+        border: 1px solid #6366f1;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #6366f1;
+          color: white;
+        }
+      }
+    }
+  }
+
+  h1 {
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+  }
+</style>
