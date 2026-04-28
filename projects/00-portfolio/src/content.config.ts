@@ -4,9 +4,7 @@ import { glob, file } from 'astro/loaders';
 
 // PROJECTS ======================================
 const projects = defineCollection({
-
     loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/projects" }),
-
     schema: ({ image }) => z.object({
         title: z.string(),
         description: z.string(),
@@ -27,4 +25,15 @@ const books = defineCollection({
     }),
 });
 
-export const collections = { projects, books };
+// CERAMICS ======================================
+const ceramics = defineCollection({
+    loader: file("src/content/data/ceramic.json"),
+    schema: z.object({
+        id: z.string(),
+        title: z.string(),
+        author: z.string(),
+        description: z.string(),
+    }),
+});
+
+export const collections = { projects, books, ceramics };

@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
 import ProjectLayout from "../../layouts/ProjectLayout.astro";
-import { DevToolbarBadge } from "astro/runtime/client/dev-toolbar/ui-library/badge.js";
 
 // 1. Esta función es el "capitán" de las rutas dinámicas
 export async function getStaticPaths() {
@@ -19,6 +18,7 @@ const { data } = project;
 
 // 3. Nueva función de Astro 5 para procesar el contenido del Markdown
 const { Content } = await render(project);
+
 
 import Badge from "./../../components/Badge.astro";
 import Button from "./../../components/Button.astro";
