@@ -38,6 +38,9 @@ h1, h2, h3 {
 .container {
   width: min(100% - 2rem, 1200px);
   margin-inline: auto;
+  &.centered {
+    text-align: center;
+  }
 }
 
 .section-padding {

@@ -27,13 +27,12 @@ const books = defineCollection({
 
 // CERAMICS ======================================
 const ceramics = defineCollection({
-    loader: file("src/content/data/ceramic.json"),
-    schema: z.object({
-        id: z.string(),
-        title: z.string(),
-        author: z.string(),
-        description: z.string(),
-    }),
+  loader: glob({ pattern: '**/[^_]*.md', base: "./src/content/ceramics" }),
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    author: z.string(),
+    description: z.string(),
+    img: image(),
+  }),
 });
-
 export const collections = { projects, books, ceramics };

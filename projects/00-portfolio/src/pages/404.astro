@@ -1,11 +1,15 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro'
+import MainLayout from "../layouts/MainLayout.astro";
+import Header from "../components/Header.astro";
 ---
 
 <MainLayout title="Página no encontrada">
-  <main>
-    <h1>404</h1>
-    <p>Esta página no existe.</p>
-    <a href="/">Volver al inicio</a>
-  </main>
+    <Header />
+    <main>
+        <section class="container centered">
+            <h1>404</h1>
+            <p>Esta página no existe.</p>
+            <a href="/">Volver al inicio</a>
+        </section>
+    </main>
 </MainLayout>

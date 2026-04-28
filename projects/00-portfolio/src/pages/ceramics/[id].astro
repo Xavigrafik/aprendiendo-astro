@@ -1,25 +1,24 @@
 ---
-// src/pages/books/[id].astro
-import { getCollection } from 'astro:content';
-import MainLayout from '../../layouts/MainLayout.astro'; // Ajusta la ruta según tu proyecto
+    import { getCollection } from 'astro:content';
+    import MainLayout from '../../layouts/MainLayout.astro';
+    import { Image } from 'astro:assets';
 
-// 1. Generar todas las rutas posibles basadas en los IDs del JSON
-export async function getStaticPaths() {
-  const ceramics = await getCollection('ceramics');
-  
-  return ceramics.map((ceramic: { id: any; }) => ({
-    params: { id: ceramic.id }, // La clave 'id' debe coincidir con el nombre del archivo [id].astro
-    props: { ceramic },         // Pasamos el objeto del libro como prop
-  }));
-}
+    export async function getStaticPaths() {
+    const ceramics = await getCollection('ceramics');
+    
+    return ceramics.map((item: { id: any; }) => ({
+        params: { id: item.id },
+        props: { item },
+    }));
+    }
 
-// 2. Recoger la prop del libro actual
-const { ceramic } = Astro.props;
-const { title, author, description, url } = ceramic.data;
+    const { item } = Astro.props;
+    const { title, author, description, img } = item.data;
 ---
 
 <MainLayout title={title}>
   <main>
+    <Image src={img} alt={title} width={800} height={600} />
     <h1>{title}</h1>
     <h3>por {author}</h3>
     
@@ -27,10 +26,8 @@ const { title, author, description, url } = ceramic.data;
       <p>{description}</p>
     </div>
 
-    <a href={url} target="_blank" class="buy-link">Más información</a>
-    
     <hr />
-    <a href="/cermaics">← Volver al listado</a>
+    <a href="/ceramics">← Volver al listado</a>
   </main>
 </MainLayout>
 
