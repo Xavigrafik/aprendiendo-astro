@@ -1,6 +1,8 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 import MainLayout from "../../layouts/MainLayout.astro";
+import Button from "../../components/Button.astro";
+import Icon from "../../components/Icon.astro";
 import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
@@ -12,6 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { item } = Astro.props;
+const { Content } = await render(item);
 const { title, author, description, img, gallery } = item.data;
 
 // Optimizamos la descripción para el meta tag (máx 160 caracteres)
@@ -22,14 +25,22 @@ const seoDescription =
 ---
 
 <MainLayout title={title}>
-    <main>
-        <Image src={img} alt={title} width={800} height={600} />
+    <div class="ceramic-detail-block">
+        <Image
+            class="main-img"
+            src={img}
+            alt={title}
+            width={800}
+            height={600}
+        />
         <h1>{title}</h1>
-        <h3>por {author}</h3>
+        <h5>por {author}</h5>
 
         <div class="content">
             <p>{seoDescription}</p>
         </div>
+
+        <Content />
 
         <!-- Galería de Imágenes -->
         {
@@ -47,21 +58,17 @@ const seoDescription =
                 </section>
             )
         }
-
-        <hr />
-        <a href="/ceramics">← Volver al listado</a>
-    </main>
+    </div>
+    <Button href="/ceramics"> <Icon name="arrow-left" size={24} /> Volver a la lista </Button>
 </MainLayout>
 
 <style>
-    main {
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 0 1rem;
+    .ceramic-detail-block {
+        padding: 1rem 0;
     }
-
     .main-img {
         width: 100%;
+        max-height: 400px;
         height: auto;
         border-radius: 12px;
         object-fit: cover;

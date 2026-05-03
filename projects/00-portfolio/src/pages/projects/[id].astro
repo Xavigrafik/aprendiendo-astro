@@ -31,13 +31,9 @@ import Icon from "./../../components/Icon.astro";
         <ul>
             {data.tags.map((tag) => <li>{tag}</li>)}
         </ul>
-        <a href="/"> Volver</a>
     </div>
 
     <article class="container section-padding" >
-        <Button href="/">
-            <Icon name="arrow-left" size={24} />
-            Volver atrás</Button>
         <h1>{data.title}</h1>
         <p class="description">{data.description}</p>
 
@@ -54,6 +50,10 @@ import Icon from "./../../components/Icon.astro";
         <div class="prose">
             <Content />
         </div>
+
+       <Button href="/projects">
+            <Icon name="arrow-left" size={24} /> Volver a la lista
+        </Button>
     </article>
 </ProjectLayout>
 
