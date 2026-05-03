@@ -1,6 +1,6 @@
 // src/content.config.ts
 import { defineCollection, z } from 'astro:content';
-import { glob, file } from 'astro/loaders'; 
+import { glob, file } from 'astro/loaders';
 
 // PROJECTS ======================================
 const projects = defineCollection({
@@ -27,12 +27,13 @@ const books = defineCollection({
 
 // CERAMICS ======================================
 const ceramics = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.md', base: "./src/content/ceramics" }),
-  schema: ({ image }) => z.object({
-    title: z.string(),
-    author: z.string(),
-    description: z.string(),
-    img: image(),
-  }),
+    loader: glob({ pattern: '**/[^_]*.md', base: "./src/content/ceramics" }),
+    schema: ({ image }) => z.object({
+        title: z.string(),
+        author: z.string(),
+        description: z.string(),
+        img: image(),
+        gallery: z.array(image()).optional(),
+    }),
 });
 export const collections = { projects, books, ceramics };

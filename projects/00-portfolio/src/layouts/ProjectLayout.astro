@@ -6,7 +6,6 @@ const { title } = Astro.props;
 ---
 
 <MainLayout title={title}>
-    <Header></Header>  
     <div class="project-container">
         <aside>
             <p>Categoría: Desarrollo Web</p>
@@ -16,7 +15,6 @@ const { title } = Astro.props;
             <slot />
         </main>
     </div>
-    <Footer></Footer>
 </MainLayout>
 
 <style>

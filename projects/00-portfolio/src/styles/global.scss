@@ -2,7 +2,7 @@
 :root {
   --primary: #3b357e;
   --text-main: #1f2937;
-  --bg-main: whitesmoke;
+  --bg-main: #E2E3E4;
   --font-sans: 'Inter', system-ui, sans-serif;
   --transition: 0.3s ease;
   --main-gradient: linear-gradient(to right, #0f0c29,var(--primary), #0f0c29);
@@ -56,20 +56,3 @@ h1, h2, h3 {
     --astro-text: currentColor;
     color: #fff;
 }
-
-// /* Colores personalizados */
-// .astro-logo {
-//   --astro-flame: navy;
-//   --astro-gradient-start: #0ea5e9;
-//   --astro-gradient-end: #6366f1;
-//   --astro-text: #1e293b;
-// }
-
-// /* Solo cambiar el wordmark, mantener llama original */
-// .astro-logo {
-//   --astro-text: white;
-// }
-
-/* O por clase directamente */
-// .astro-wordmark { fill: hotpink; }
-// .astro-flame    { fill: gold; }

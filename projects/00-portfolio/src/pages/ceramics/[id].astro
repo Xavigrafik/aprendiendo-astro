@@ -1,49 +1,94 @@
 ---
-    import { getCollection } from 'astro:content';
-    import MainLayout from '../../layouts/MainLayout.astro';
-    import { Image } from 'astro:assets';
+import { getCollection, type CollectionEntry } from "astro:content";
+import MainLayout from "../../layouts/MainLayout.astro";
+import { Image } from "astro:assets";
 
-    export async function getStaticPaths() {
-    const ceramics = await getCollection('ceramics');
-    
-    return ceramics.map((item: { id: any; }) => ({
+export async function getStaticPaths() {
+    const ceramics = await getCollection("ceramics");
+    return ceramics.map((item: CollectionEntry<"ceramics">) => ({
         params: { id: item.id },
         props: { item },
     }));
-    }
+}
 
-    const { item } = Astro.props;
-    const { title, author, description, img } = item.data;
+const { item } = Astro.props;
+const { title, author, description, img, gallery } = item.data;
+
+// Optimizamos la descripción para el meta tag (máx 160 caracteres)
+const seoDescription =
+    description.length > 155
+        ? description.substring(0, 155) + "..."
+        : description;
 ---
 
 <MainLayout title={title}>
-  <main>
-    <Image src={img} alt={title} width={800} height={600} />
-    <h1>{title}</h1>
-    <h3>por {author}</h3>
-    
-    <div class="content">
-      <p>{description}</p>
-    </div>
+    <main>
+        <Image src={img} alt={title} width={800} height={600} />
+        <h1>{title}</h1>
+        <h3>por {author}</h3>
 
-    <hr />
-    <a href="/ceramics">← Volver al listado</a>
-  </main>
+        <div class="content">
+            <p>{seoDescription}</p>
+        </div>
+
+        <!-- Galería de Imágenes -->
+        {
+            gallery && gallery.length > 0 && (
+                <section class="gallery">
+                    {gallery.map((photo, index) => (
+                        <div class="gallery-item">
+                            <Image
+                                src={photo}
+                                alt={`Detalle ${index + 1} de ${title}`}
+                                width={600}
+                            />
+                        </div>
+                    ))}
+                </section>
+            )
+        }
+
+        <hr />
+        <a href="/ceramics">← Volver al listado</a>
+    </main>
 </MainLayout>
 
 <style>
-  main {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-  }
-  .buy-link {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #333;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-  }
+    main {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .main-img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        object-fit: cover;
+    }
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    .author {
+        font-style: italic;
+        color: #666;
+    }
+    .buy-link {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        background-color: #333;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+    }
 </style>

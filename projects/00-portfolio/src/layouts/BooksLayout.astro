@@ -9,19 +9,16 @@ import MainLayout from './MainLayout.astro';
 ---
 
 <MainLayout title={title}>
-    <Header></Header>  
     <div class="books-container">
         <slot />
     </div>
-  <Footer></Footer>
 </MainLayout>
-
 <style>
   .books-container {
     min-height: 100vh;
     max-width: 1200px;
     margin: 0 auto;
-    border: 1px solid green;
+    background-color: #fff;
     gap: 2rem;
   }
 </style>
